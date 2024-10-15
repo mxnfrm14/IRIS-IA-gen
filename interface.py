@@ -28,19 +28,22 @@ class ChatbotApp(ctk.CTk):
         self.logo_label = ctk.CTkLabel(self.sidebar_frame, text="IRIS", font=ctk.CTkFont(size=20, weight="bold"))
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
-        self.sidebar_button_1 = ctk.CTkButton(self.sidebar_frame, text="Button 1", command=self.sidebar_button_event)
+        self.sidebar_button_1 = ctk.CTkButton(self.sidebar_frame, text="Button 1", command=self.sidebar_button_event, fg_color="#A075AD", hover_color="#88419D")
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=10)
 
-        self.sidebar_button_2 = ctk.CTkButton(self.sidebar_frame, text="Button 2", command=self.sidebar_button_event)
+        self.sidebar_button_2 = ctk.CTkButton(self.sidebar_frame, text="Button 2", command=self.sidebar_button_event , fg_color="#A075AD", hover_color="#88419D")
         self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=10)
 
-        self.sidebar_button_3 = ctk.CTkButton(self.sidebar_frame, text="Button 3", command=self.sidebar_button_event)
+        self.sidebar_button_3 = ctk.CTkButton(self.sidebar_frame, text="Button 3", command=self.sidebar_button_event , fg_color="#A075AD", hover_color="#88419D")
         self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=10)
 
         self.appearance_mode_label = ctk.CTkLabel(self.sidebar_frame, text="Appearance Mode:", anchor="w")
         self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
 
         self.appearance_mode_optionemenu = ctk.CTkOptionMenu(self.sidebar_frame, values=["System","Light", "Dark"],
+                                                            fg_color="#A075AD",           # Couleur du fond
+                                                            button_color="#A075AD",       # Couleur du bouton
+                                                            button_hover_color="#88419D", # Couleur du bouton au survol
                                                             command=self.change_appearance_mode_event)
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 10))
 
@@ -51,6 +54,9 @@ class ChatbotApp(ctk.CTk):
         self.scaling_optionemenu = ctk.CTkOptionMenu(
             self.sidebar_frame,
             values=["80%", "90%", "100%", "110%", "120%"],
+            fg_color="#A075AD",           # Couleur du fond
+            button_color="#A075AD",       # Couleur du bouton
+            button_hover_color="#88419D", # Couleur du bouton au survol
             command=self.change_scaling_event,
             variable=default_scaling_value
         )
@@ -76,7 +82,7 @@ class ChatbotApp(ctk.CTk):
         self.user_input.grid(row=3, column=1, padx=(20, 0), pady=(20, 20), sticky="nsew")
 
         # Créer un bouton pour envoyer le message
-        self.send_button = ctk.CTkButton(self, text="Envoyer", command=self.send_message)
+        self.send_button = ctk.CTkButton(self, text="Envoyer", command=self.send_message, fg_color="#A075AD", bg_color="#88419D")
         self.send_button.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
     def send_message(self):
