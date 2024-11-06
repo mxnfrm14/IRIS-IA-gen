@@ -55,6 +55,10 @@ huggingface-cli download Qwen/Qwen2.5-3B-Instruct-GGUF qwen2.5-3b-instruct-q5_k_
 
 ## Installation de Llama
 
+Entrez cette commande pour cloner :
+```bash
+git clone https://github.com/ggerganov/llama.cpp
+```
 Pour utiliser **Llama**, il est nécessaire d'installer Visual Studio 2022. Vous pouvez le télécharger à l'adresse suivante : [Visual Studio 2022](https://visualstudio.microsoft.com/fr/visual-cpp-build-tools/).
 
 ### Ajout des requirements C++
