@@ -88,6 +88,9 @@ class ChatbotApp(ctk.CTk):
         self.send_button = ctk.CTkButton(self, text="Envoyer", command=self.send_message, fg_color="#A075AD", bg_color="#88419D")
         self.send_button.grid(row=3, column=3, padx=(20, 20), pady=(20, 20), sticky="nsew")
 
+        # Bind Enter key to send message
+        self.user_input.bind("<Return>", lambda event: self.send_message())
+
     def send_message(self):
         user_message = self.user_input.get()
         if user_message:
@@ -97,24 +100,17 @@ class ChatbotApp(ctk.CTk):
             self.user_input.delete(0, ctk.END)
 
 
-    # Charger le modèle GGUF localement
-    self.model = Llama(model_path="Models/qwen2.5-0.5b-instruct-q5_k_m.gguf")
+
 
     def get_bot_response(self, message):
-        # if "bonjour" in message.lower():
-        #     return "Bonjour! Comment puis-je vous aider?"
-        # elif "comment ça va" in message.lower():
-        #     return "Je suis un bot, donc je ne ressens pas d'émotions, mais merci de demander!"
-        # else:
-        #     return "Je ne suis pas sûr de comprendre. Pouvez-vous reformuler?"
-        response = self.model(message)
-        return response["choices"][0]["text"].strip()
+        if "bonjour" in message.lower():
+            return "Bonjour! Comment puis-je vous aider?"
+        elif "comment ça va" in message.lower():
+            return "Je suis un bot, donc je ne ressens pas d'émotions, mais merci de demander!"
+        else:
+            return "Je ne suis pas sûr de comprendre. Pouvez-vous reformuler?"
         
-
-    def get_bot_response(self, message):
-        # Générer la réponse en utilisant le modèle Qwen
-        response = self.model(message)
-        return response["choices"][0]["text"].strip()
+    
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         ctk.set_appearance_mode(new_appearance_mode)
