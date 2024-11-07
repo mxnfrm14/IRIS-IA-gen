@@ -98,7 +98,7 @@ class ChatbotApp(ctk.CTk):
 
 
     # Charger le modèle GGUF localement
-    self.model = Llama(model_path="Models/qwen2.5-3b-instruct-q5_k_m.gguf")
+    self.model = Llama(model_path="Models/qwen2.5-0.5b-instruct-q5_k_m.gguf")
 
     def get_bot_response(self, message):
         # if "bonjour" in message.lower():

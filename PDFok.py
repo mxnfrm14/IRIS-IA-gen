@@ -40,7 +40,7 @@ class ChatbotApp(ctk.CTk):
         super().__init__()
 
         # Initialize the model at the start
-        self.model = Llama(model_path="Models/qwen2.5-3b-instruct-q5_k_m.gguf",
+        self.model = Llama(model_path="Models/qwen2.5-0.5b-instruct-q5_k_m.gguf",
                            n_ctx=8000)
         self.is_generating = False
         self.current_context = ""  # Store the current document context

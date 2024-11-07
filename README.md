@@ -52,6 +52,10 @@ Pour télécharger le modèle, utilisez la commande suivante :
 ```bash
 huggingface-cli download Qwen/Qwen2.5-3B-Instruct-GGUF qwen2.5-3b-instruct-q5_k_m.gguf --local-dir ./Models --local-dir-use-symlinks False
 ```
+ou 
+```bash
+huggingface-cli download Qwen/Qwen2.5-0.5B-Instruct-GGUF qwen2.5-0.5b-instruct-q5_k_m.gguf --local-dir ./Models --local-dir-use-symlinks False
+```
 
 ## Installation de Llama
 

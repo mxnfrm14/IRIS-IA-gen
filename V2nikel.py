@@ -37,7 +37,7 @@ class ChatbotApp(ctk.CTk):
         super().__init__()
 
         # Initialize the model at the start
-        self.model = Llama(model_path="Models/qwen2.5-3b-instruct-q5_k_m.gguf")
+        self.model = Llama(model_path="Models/qwen2.5-0.5b-instruct-q5_k_m.gguf")
         self.is_generating = False
 
         # Main window configuration

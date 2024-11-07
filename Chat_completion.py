@@ -265,10 +265,14 @@ class ChatbotApp(ctk.CTk):
                     # presence_penalty=0.6, # Pénalité pour éviter les répétitions
                     # frequency_penalty=0.4 # Pénalité pour limiter les termes répétés
                 )
-
+            print(response)
             # Generate response
             # response = self.model(prompt, max_tokens=2048)
-            bot_response = response["choices"][0]["text"].strip()
+            if "choices" in response and len(response["choices"]) > 0 and "message" in response["choices"][0]:
+                bot_response = response["choices"][0]["message"]["content"].strip()
+            else:
+                bot_response = "Erreur: Réponse inattendue du modèle."
+
             
             # Schedule the response update in the main thread
             self.after(0, self.update_chat_with_response, bot_response)
