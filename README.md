@@ -77,4 +77,9 @@ Après avoir installé les outils de développement et les avoir ajoutés à vot
 make llama-cli
 ```
 
+faire 
+```bash
+pip install llama-cpp-python
+```
+
 Merci d'avoir consulté ce projet ! Si vous avez des questions ou des suggestions, n'hésitez pas à ouvrir une issue.
