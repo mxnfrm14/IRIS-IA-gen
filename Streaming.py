@@ -268,61 +268,54 @@ class ChatbotApp(ctk.CTk):
 
     def generate_response(self, message):
         try:
-            # Prepare the prompt with context if available
+            # Préparation du prompt avec le contexte si disponible
             if self.current_context:
-                
-                # Appel de la méthode create_chat_completion avec le prompt de résumé
-                response = self.model.create_chat_completion(
-                    messages=[
-                        {"role": "system", "content": "You are an assistant specialized in summarizing texts perfectly."},
-                        {
-                            "role": "user",
-                            "content": f"{message} \n\n{self.current_context}",
-                            "stream": True
-                        },
-                    ],
-                    temperature=0.2,     # Faible température pour un texte cohérent
-                    # top_p=0.9,           # Paramètre pour garder les meilleures réponses
-                    # max_tokens=300,      # Limite de tokens pour un résumé concis
-                    # presence_penalty=0.6, # Pénalité pour éviter les répétitions
-                    # frequency_penalty=0.4 # Pénalité pour limiter les termes répétés
-                )
-
+                messages = [
+                    {"role": "system", "content": "You are an assistant specialized in summarizing texts perfectly."},
+                    {
+                        "role": "user",
+                        "content": f"{message} \n\n{self.current_context}"
+                    },
+                ]
             else:
-                response = self.model.create_chat_completion(
-                    messages=[
-                        {"role": "system", "content": "You are an assistant specialized in summarizing texts perfectly."},
-                        {
-                            "role": "user",
-                            "content": message,
-                            "stream": True
-
-                        },
-                    ],
-                    temperature=0.2,     # Faible température pour un texte cohérent
-                    # top_p=0.9,           # Paramètre pour garder les meilleures réponses
-                    # max_tokens=300,      # Limite de tokens pour un résumé concis
-                    # presence_penalty=0.6, # Pénalité pour éviter les répétitions
-                    # frequency_penalty=0.4 # Pénalité pour limiter les termes répétés
-                )
-            print(response)
-            # Generate response
-            # response = self.model(prompt, max_tokens=2048)
-            if "choices" in response and len(response["choices"]) > 0 and "message" in response["choices"][0]:
-                bot_response = response["choices"][0]["message"]["content"].strip()
-            else:
-                bot_response = "Erreur: Réponse inattendue du modèle."
-
+                messages = [
+                    {"role": "system", "content": "You are an assistant specialized in summarizing texts perfectly."},
+                    {
+                        "role": "user",
+                        "content": message
+                    },
+                ]
             
-            # Schedule the response update in the main thread
+            # Initialise la réponse partielle pour l'affichage progressif
+            bot_response = ""
+            self.display_bot_message("...")  # Placeholder message
+            bot_message_label = self.chat_display.winfo_children()[-1]  # Dernier message ajouté (placeholder)
+            
+            # Llama: récupérer la réponse de manière itérative (streaming)
+            for chunk in self.model.create_chat_completion(messages=messages, temperature=0.2, stream=True):
+                # Vérifier la structure du chunk
+                if "choices" in chunk and len(chunk["choices"]) > 0 and "message" in chunk["choices"][0]:
+                    partial_text = chunk["choices"][0]["message"]["content"]
+                    bot_response += partial_text
+                    
+                    # Affiche la réponse partielle dans le label de chat
+                    bot_message_label.configure(text=bot_response)
+                    self.scroll_to_bottom()
+                else:
+                    print("Chunk structure unexpected:", chunk)
+            
+            # Affiche la réponse finale une fois le streaming terminé
             self.after(0, self.update_chat_with_response, bot_response)
-            
+        
         except Exception as e:
+            # En cas d'erreur, afficher le message d'erreur
             self.after(0, self.update_chat_with_response, f"Erreur: {str(e)}")
         
         finally:
-            # Re-enable input and button, stop loading animation
+            # Réactive les boutons et arrête l'animation de chargement
             self.after(0, self.finish_generation)
+
+
 
     def update_chat_with_response(self, response):
         self.display_bot_message(response)
