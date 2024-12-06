@@ -48,6 +48,7 @@ class ChatbotApp(ctk.CTk):
         self.current_file_name: Optional[str] = None  # Store the current file name
 
         # Main window configuration
+        self.iconbitmap('icon.ico')
         self.title("IRIS Chatbot")
         self.geometry(f"{1100}x{580}")
 
